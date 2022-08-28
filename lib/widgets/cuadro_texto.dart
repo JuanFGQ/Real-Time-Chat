@@ -13,7 +13,7 @@ class CuadroTextoWidget extends StatelessWidget {
       required this.placeHolder,
       required this.textcontroller,
       this.keyBoardType = TextInputType.text,
-      this.isPassword = true})
+      this.isPassword = false})
       : super(key: key);
 
   @override

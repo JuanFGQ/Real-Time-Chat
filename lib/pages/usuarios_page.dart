@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontchat/models/usuario.dart';
+import 'package:frontchat/services/auth_services.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UsuariosPage extends StatefulWidget {
@@ -12,25 +14,31 @@ class _UsuariosPageState extends State<UsuariosPage> {
       RefreshController(initialRefresh: false);
 
   final usuarios = [
-    Usuario(online: true, email: ' juan@gmail.com', nombre: 'juan', uuid: '1'),
-    Usuario(online: false, email: ' juan@gmail.com', nombre: 'juan', uuid: '2'),
-    Usuario(online: true, email: ' juan@gmail.com', nombre: 'juan', uuid: '3')
+    Usuario(online: true, email: ' juan@gmail.com', nombre: 'juan', uid: '1'),
+    Usuario(online: false, email: ' juan@gmail.com', nombre: 'juan', uid: '2'),
+    Usuario(online: true, email: ' juan@gmail.com', nombre: 'juan', uid: '3')
   ];
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context); //*99
+    final usuario = authService.usuario; //*99
+
     return Scaffold(
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Juanito',
+            usuario.nombre, //*99
             style: TextStyle(color: Colors.black87),
           ),
         ),
         elevation: 2,
         backgroundColor: Colors.white70,
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, 'login');
+              AuthService.deleteToken();
+            },
             icon: Icon(
               Icons.exit_to_app_sharp,
               color: Colors.black,
