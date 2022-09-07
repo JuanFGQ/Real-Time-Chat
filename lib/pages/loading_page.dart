@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontchat/pages/login_pgae.dart';
 import 'package:frontchat/pages/usuarios_page.dart';
 import 'package:frontchat/services/auth_services.dart';
+import 'package:frontchat/services/socket_service.dart';
 import 'package:provider/provider.dart';
 
 class LoadingPage extends StatelessWidget {
@@ -25,10 +26,10 @@ class LoadingPage extends StatelessWidget {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     final autenticado = await authService.isLoggedIn();
+    final socketServer = Provider.of<SocketService>(context, listen: false);
 
     if (autenticado) {
-      // todo:conectar al socket server
-
+      socketServer.conect();
       Navigator.pushReplacement(
           context,
           PageRouteBuilder(

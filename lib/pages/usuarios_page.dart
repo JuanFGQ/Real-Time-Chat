@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontchat/models/usuario.dart';
 import 'package:frontchat/services/auth_services.dart';
+import 'package:frontchat/services/chat_service.dart';
+import 'package:frontchat/services/socket_service.dart';
+import 'package:frontchat/services/usuarios_service.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -10,19 +13,24 @@ class UsuariosPage extends StatefulWidget {
 }
 
 class _UsuariosPageState extends State<UsuariosPage> {
+  final usuarioService = new UsuarioService(); //*111
+
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  final usuarios = [
-    Usuario(online: true, email: ' juan@gmail.com', nombre: 'juan', uid: '1'),
-    Usuario(online: false, email: ' juan@gmail.com', nombre: 'juan', uid: '2'),
-    Usuario(online: true, email: ' juan@gmail.com', nombre: 'juan', uid: '3')
-  ];
+  List<Usuario> usuarios = []; //*111
+
+  @override
+  void initState() {
+    this._cargarUsuarios(); //*111
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context); //*99
     final usuario = authService.usuario; //*99
+    final socketService = Provider.of<SocketService>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -36,6 +44,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
         backgroundColor: Colors.white70,
         leading: IconButton(
             onPressed: () {
+              socketService.disconnect();
               Navigator.pushReplacementNamed(context, 'login');
               AuthService.deleteToken();
             },
@@ -46,8 +55,9 @@ class _UsuariosPageState extends State<UsuariosPage> {
         actions: [
           Container(
             margin: EdgeInsets.only(right: 10),
-            child: Icon(Icons.check_circle, color: Colors.green),
-            // child: Icon(Icons.check_circle, color: Colors.green),
+            child: (socketService.serverStatus == ServerStatus.Online) //*107
+                ? Icon(Icons.check_circle, color: Colors.green)
+                : Icon(Icons.check_circle, color: Colors.red),
           )
         ],
       ),
@@ -66,13 +76,13 @@ class _UsuariosPageState extends State<UsuariosPage> {
   ListView _ListViewUsuarios() {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
-      itemBuilder: (_, i) => _UsuariosListTile(usuarios[i]),
+      itemBuilder: (_, i) => _usuariosListTile(usuarios[i]),
       separatorBuilder: (_, i) => Divider(),
       itemCount: usuarios.length,
     );
   }
 
-  ListTile _UsuariosListTile(Usuario usuario) {
+  ListTile _usuariosListTile(Usuario usuario) {
     return ListTile(
       title: Text(usuario.nombre),
       subtitle: Text(usuario.email),
@@ -86,15 +96,32 @@ class _UsuariosPageState extends State<UsuariosPage> {
             color: usuario.online ? Colors.green : Colors.red,
             borderRadius: BorderRadius.circular(100)),
       ),
+      //*112
+      onTap: () {
+        final chatService = Provider.of<ChatService>(context, listen: false);
+
+        /*
+       aqui habia que igualar el chatService,usuarioPara con el usuario 
+       que hay establecido como lista vacia, ya que este es el que trae la informacio
+       por esa razon me daba resultado nulo en el print, porque no habia puesto la
+       igualdad
+       */
+        chatService.usuarioPara = usuario; //*112
+        Navigator.pushNamed(context, 'chat'); //*112
+
+        print(chatService.usuarioPara?.nombre);
+        print(usuario.uid);
+      },
     );
   }
 
   _cargarUsuarios() async {
-    {
-      // monitor network fetch
-      await Future.delayed(Duration(milliseconds: 1000));
-      // if failed,use refreshFailed()
-      _refreshController.refreshCompleted();
-    }
+    this.usuarios = await usuarioService.getUsuarios(); //*111
+    setState(() {});
+
+    // monitor network fetch
+    // await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
   }
 }

@@ -7,6 +7,8 @@ import 'package:frontchat/widgets/label.dart';
 import 'package:frontchat/widgets/logo.dart';
 import 'package:provider/provider.dart';
 
+import '../services/socket_service.dart';
+
 class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
 
     return Container(
       margin: EdgeInsets.only(top: 40),
@@ -96,6 +99,7 @@ class __FormState extends State<_Form> {
                           passCtrl.text.trim());
 
                       if (registroOk == true) {
+                        socketService.conect(); //*106
                         Navigator.pushReplacementNamed(context, 'usuarios');
                       } else {
                         mostrarAlerta(context, 'Registro Incorrecto',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontchat/helpers/mostrar_Alerta.dart';
 import 'package:frontchat/services/auth_services.dart';
+import 'package:frontchat/services/socket_service.dart';
 import 'package:frontchat/widgets/cuadro_texto.dart';
 import 'package:frontchat/widgets/elevated_button.dart';
 import 'package:frontchat/widgets/label.dart';
@@ -53,6 +54,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
 
     return Container(
       margin: EdgeInsets.only(top: 40),
@@ -91,9 +93,13 @@ class __FormState extends State<_Form> {
 
                       //*modificado en 95
                       final loginOk = await authService.login(
-                          emailCtrl.text, passCtrl.text.trim()); //*92//*94 trim
+                        emailCtrl.text,
+                        passCtrl.text.trim(),
+                      ); //*92//*94 trim
 
                       if (loginOk) {
+                        socketService
+                            .conect(); //funcion para conectar al socket*106
                         Navigator.pushReplacementNamed(context, 'usuarios');
                       } else {
                         mostrarAlerta(
