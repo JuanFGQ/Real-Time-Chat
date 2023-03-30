@@ -1,16 +1,19 @@
-# frontchat
 
-A new Flutter project.
+- Demo Video
+  - real time chat. it was implemented a socket service 
+  
+  **Real time comunication**
+  
+  ![show video (1)](https://user-images.githubusercontent.com/97085649/228934183-02848878-6113-4278-a2c8-aad54a0d84cc.gif)
+  
+  
+  ## Connected User Indicator
+  
+    - shows my state with server and other users connection
+  
+![user_connected_indicator](https://user-images.githubusercontent.com/97085649/228934352-efa11b2f-b7e9-4110-b3eb-d850b6b337eb.png)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Log-out function
+  - takes me to login page 
+    
+![log_out](https://user-images.githubusercontent.com/97085649/228935130-6944b866-23bd-4515-aa57-93b7581d8267.png)
