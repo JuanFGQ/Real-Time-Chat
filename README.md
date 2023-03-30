@@ -1,5 +1,5 @@
 
-- Demo Video
+- ***Demo Video***
   - real time chat. it was implemented a socket service 
   
   **Real time comunication**
@@ -17,3 +17,13 @@
   - takes me to login page 
     
 ![log_out](https://user-images.githubusercontent.com/97085649/228935130-6944b866-23bd-4515-aa57-93b7581d8267.png)
+
+
+## Login page and register page
+
+<img align="left" src="https://user-images.githubusercontent.com/97085649/228936185-a9c84c5e-6fc5-4e95-bce4-8f8b720ddd07.png">
+<img align="left" src="https://user-images.githubusercontent.com/97085649/228936129-44975461-8a04-4378-b28f-30683557d7dd.png">
+
+## Link to back-end
+https://github.com/JuanFGQ/chat-backend.git
+
