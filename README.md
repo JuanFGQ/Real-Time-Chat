@@ -27,3 +27,10 @@
 ## Link to back-end
 https://github.com/JuanFGQ/chat-backend.git
 
+## Aditional Info
+ 
+  - to get users,messages history and users register it was implemented the structure of REST api service
+  - the back end was created with javaScript and node 
+  - the server to use app on different physical devices was provided by Render.com
+  - for data base i used MongoDB 
+
