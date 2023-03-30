@@ -15,10 +15,14 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
-  List<MensajeChatWidget> _mensaje = []; //*66
+  final List<MensajeChatWidget> _mensaje = []; //*66
 
   final _textController = TextEditingController();
-  final _focusNode = FocusNode();
+  /*
+  sirve para que el cursor se ponga de nuevo en la caja de texto cuando
+  ya envie el mensaje 
+  */
+  final _focusNode = FocusNode(); //*64
 
   ChatService?
       chatService; //*114  para tener la info del usuario y la instancia del chat
@@ -69,7 +73,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
 //*115  //**************************************************** */
 
   void _escucharMensaje(dynamic payload) {
-    MensajeChatWidget mensaje = new MensajeChatWidget(
+    MensajeChatWidget mensaje = MensajeChatWidget(
         texto: payload['mensaje'],
         uuid: payload['de'],
         animationController: AnimationController(
@@ -118,6 +122,8 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
                 itemCount: _mensaje.length, //*64
 
                 itemBuilder: (_, i) => _mensaje[i], //*64
+                //la funcion reverse sirve para mandar los widgtes
+                //hacia arriba o hacia abajo
                 reverse: true,
               ),
             ),
@@ -205,6 +211,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
             vsync: this, duration: Duration(milliseconds: 400)), //*67
         texto: texto,
         uuid: authService!.usuario.uid);
+
     _mensaje.insert(0, nuevoMensaje);
     nuevoMensaje.animationController.forward(); //*68
 
@@ -225,6 +232,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   void dispose() {
 // limpiar cada una de las instancias de los mensajes porque todos los controladores
 // creados pueden consumir mas memoria de la necesaria
+//para limpiar la aplicacion de que la animacion siga ejecutandose
 // *68
     for (MensajeChatWidget mensaje in _mensaje) {
       mensaje.animationController.dispose();

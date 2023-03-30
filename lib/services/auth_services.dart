@@ -133,7 +133,7 @@ class AuthService with ChangeNotifier {
 
     print(resp.body);
 
-    // cuando tengo una autenticacion validad almaceno el loginResponse.usuairo
+    // cuando tengo una autenticacion valida almaceno el loginResponse.usuario
     if (resp.statusCode == 200) {
       final loginResponse = loginResponseFromJson(resp.body);
       usuario = loginResponse.usuario;

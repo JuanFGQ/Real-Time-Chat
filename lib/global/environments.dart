@@ -1,13 +1,10 @@
 //*92
-import 'dart:io';
 
 class Environment {
   // con los metodos estaticos puedo acceder a ellos sin necesidad de instanciar la clase
 
-  static String apiUrl = Platform.isAndroid
-      ? 'http://10.0.2.2:3000/api'
-      : 'http://localhost:3000/api';
-
-  static String socketUrl =
-      Platform.isAndroid ? 'http://10.0.2.2:3000' : 'http://localhost:3000';
+  static String apiUrl = 'https://realtime-vckf.onrender.com/api';
+  // : 'https://chatapp12345457.herokuapp.com';
+  static String socketUrl = 'https://realtime-vckf.onrender.com';
+  // : 'https://chatapp12345457.herokuapp.com';
 }

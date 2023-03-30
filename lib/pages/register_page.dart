@@ -21,7 +21,7 @@ class RegisterPage extends StatelessWidget {
               child: Container(
             height: MediaQuery.of(context).size.height * 0.9,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 LogoWidget(
                     texto: 'Register',

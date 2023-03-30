@@ -25,6 +25,7 @@ class SocketService with ChangeNotifier {
     final token = await AuthService.getToken();
 
     _socket = IO.io(
+        // 'https://chatapp12345457.herokuapp.com/',
         Environment.socketUrl, //*106
         IO.OptionBuilder()
             .setTransports(['websocket'])

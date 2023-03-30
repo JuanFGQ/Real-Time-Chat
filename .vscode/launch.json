@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "frontchat",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "frontchat (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "frontchat (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "Android10",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5554"
+
+        },
+        {
+            "name": "pixel tablet",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5556"
+
+        }
+
+    ],
+    "compounds": [
+        {
+            "name": "All Devices",
+            "configurations": ["Android10",
+            
+            // "CPH2065",
+            "pixel tablet"]
+        }
+    ]
+}

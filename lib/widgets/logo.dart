@@ -16,7 +16,11 @@ class LogoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(margin: EdgeInsets.only(top: 50), width: 300, child: imagen),
+        Container(
+          margin: EdgeInsets.only(top: 50),
+          width: 150,
+          child: imagen,
+        ),
         Text(texto, style: estilo),
       ],
     );
