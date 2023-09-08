@@ -78,18 +78,19 @@ class __FormState extends State<_Form> {
           ElevatedButtonWidget(
               texto: 'ingrese',
 
-              // bloquear boton cuando esta en proceso de autenticacion
+            //blocks the button when authentication process  initiate
               onPressed: authService.autenticando
                   ? null
                   : () async {
-                      // quitar teclado cuando ya se haga la autenticacion
+                      
+                    //quite keyboard when authentication was done
                       FocusScope.of(context).unfocus(); //*94
 
                       //*92
-                      // aqui llamo al login desde el servicio auth service
-                      //  le pongo como argumento emailCtrl.text, passCtrl.text
-                      // porque esos dos son lo que me reciben la info desde la ventana de login
-                      // cuando la reciben la mandan al back para autenticar
+                    //here i call the login from authService
+                    // put the argument emailCtrl.text, passCtrl.text
+                    //because those two recive the info drom login window
+                    //when is receive it sent to backend for authentication
 
                       //*modificado en 95
                       final loginOk = await authService.login(
@@ -99,7 +100,7 @@ class __FormState extends State<_Form> {
 
                       if (loginOk) {
                         socketService
-                            .conect(); //funcion para conectar al socket*106
+                            .conect(); //function for connect to socket*106
                         Navigator.pushReplacementNamed(context, 'usuarios');
                       } else {
                         mostrarAlerta(
