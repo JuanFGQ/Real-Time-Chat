@@ -17,7 +17,7 @@ class AuthService with ChangeNotifier {
   //*96
   final _storage = new FlutterSecureStorage();
 
-  // getters del token de forma estatica
+  //static token getters
 
   static Future<String> getToken() async {
     final _storage = new FlutterSecureStorage();
@@ -41,8 +41,8 @@ class AuthService with ChangeNotifier {
   }
 
   // **************************************************************
-  // *validando informacion del login
-//*93-modificado 95
+  //info login validation
+//*93-modified 95
   Future<bool> login(String email, String password) async {
     this.autenticando = true;
 
@@ -53,7 +53,7 @@ class AuthService with ChangeNotifier {
 
     //*92
 
-    //  se debe parcear la ruta
+    //  must be parce de url
     final uri = Uri.parse('${Environment.apiUrl}/login');
 
     final resp = await http.post(uri, body: jsonEncode(data), headers: {
@@ -64,13 +64,12 @@ class AuthService with ChangeNotifier {
     autenticando = false; //*95
 
 //*93
-    // cuando tengo una autenticacion validad almaceno el loginResponse.usuairo
+    //when i have valid authentication store loginResponse.usuario
     if (resp.statusCode == 200) {
       final loginResponse = loginResponseFromJson(resp.body);
       usuario = loginResponse.usuario;
 
-      // con el await : espera a que se grabe y una vez se grabe sigue con
-      // la siguiente linea
+     
       await this._guardarToken(loginResponse.token);
       return true;
     } else {
@@ -80,7 +79,8 @@ class AuthService with ChangeNotifier {
 
   // **************************************************************
 
-// *97 recibiendo informacion de la ventana de registro
+// *97 
+  // receiving info from register info 
 
   Future register(String nombre, String email, String password) async {
     this.autenticando = true;
@@ -91,8 +91,8 @@ class AuthService with ChangeNotifier {
       'password': password,
     };
 
-    //  se debe parcear la ruta
-    // cunando añado /new es para ir al endpoint que me recibe la informacion
+    //  route must be parse
+    // /when add new is for go ro the endpoint that receives the info 
     final uri = Uri.parse('${Environment.apiUrl}/login/new');
 
     final resp = await http.post(uri, body: jsonEncode(data), headers: {
@@ -102,13 +102,11 @@ class AuthService with ChangeNotifier {
     print(resp.body);
     autenticando = false; //*95
 
-    // cuando tengo una autenticacion validad almaceno el loginResponse.usuairo
+    // when i have valid authentication store loginResponse.usuario
     if (resp.statusCode == 200) {
       final loginResponse = loginResponseFromJson(resp.body);
       usuario = loginResponse.usuario;
 
-      // con el await : espera a que se grabe y una vez se grabe sigue con
-      // la siguiente linea
       await this._guardarToken(loginResponse.token);
       return true;
     } else {
@@ -133,13 +131,12 @@ class AuthService with ChangeNotifier {
 
     print(resp.body);
 
-    // cuando tengo una autenticacion valida almaceno el loginResponse.usuario
+    // when i have valid authentication store loginResponse.usuario
     if (resp.statusCode == 200) {
       final loginResponse = loginResponseFromJson(resp.body);
       usuario = loginResponse.usuario;
 
-      // con el await : espera a que se grabe y una vez se grabe sigue con
-      // la siguiente linea
+    
       await this._guardarToken(loginResponse.token);
       return true;
     } else {
@@ -151,13 +148,14 @@ class AuthService with ChangeNotifier {
   // **************************************************************
 
   // guardar token en sitio persistente para iniciar sesion rapido
+  //save token on memory to login fast
   //*96
 
   Future _guardarToken(String token) {
     return _storage.write(key: 'token', value: token);
   }
 
-// elimina el token del dispositivo
+//delete token from device
   Future logout() async {
     await _storage.delete(key: 'token');
   }
