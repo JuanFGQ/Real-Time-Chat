@@ -101,10 +101,10 @@ class _UsuariosPageState extends State<UsuariosPage> {
         final chatService = Provider.of<ChatService>(context, listen: false);
 
         /*
-       aqui habia que igualar el chatService,usuarioPara con el usuario 
-       que hay establecido como lista vacia, ya que este es el que trae la informacio
-       por esa razon me daba resultado nulo en el print, porque no habia puesto la
-       igualdad
+      here we had to match the chatService, userTo with the user
+        that has been established as an empty list, since this is the one that brings the information
+        For that reason it gave me null results in the print, because I had not set the
+        equality
        */
         chatService.usuarioPara = usuario; //*112
         Navigator.pushNamed(context, 'chat'); //*112
