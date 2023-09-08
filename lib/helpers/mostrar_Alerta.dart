@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-// *creado en 95
 
 mostrarAlerta(BuildContext context, String titulo, String subtitulo) {
   if (Platform.isAndroid) {
