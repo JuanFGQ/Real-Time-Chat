@@ -17,10 +17,11 @@ class SocketService with ChangeNotifier {
   ServerStatus get serverStatus => this._serverStatus;
   IO.Socket get socket => this._socket; //*31
 
-  //*31 emit para usar directamente la funcion
+  //*31 
+  //emit for use directly the function
   Function get emit => this._socket.emit;
 
-  //funcion para conectar //*106
+  //connect function //*106
   void conect() async {
     final token = await AuthService.getToken();
 
@@ -45,7 +46,7 @@ class SocketService with ChangeNotifier {
     });
   }
 
-// funcion para desconectar //*106
+// function for disconnect //*106
 
   void disconnect() {
     this._socket.disconnect();
