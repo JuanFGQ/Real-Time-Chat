@@ -1,7 +1,6 @@
-//*92
 
 class Environment {
-  // con los metodos estaticos puedo acceder a ellos sin necesidad de instanciar la clase
+  // with static methods i can access to them without instantiate the class
 
   static String apiUrl = 'https://realtime-vckf.onrender.com/api';
   // : 'https://chatapp12345457.herokuapp.com';
