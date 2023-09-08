@@ -19,15 +19,16 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
 
   final _textController = TextEditingController();
   /*
-  sirve para que el cursor se ponga de nuevo en la caja de texto cuando
-  ya envie el mensaje 
+
+function to return the cursor to the text box when massage was sent
+  
   */
   final _focusNode = FocusNode(); //*64
 
   ChatService?
-      chatService; //*114  para tener la info del usuario y la instancia del chat
-  late SocketService socketService; //*114 para obtener la funcion emit
-  AuthService? authService; //*114 para saber quien esta mandando el mensaje
+      chatService; //*114  to get user info and the class instance
+  late SocketService socketService; //*114 to get emit function
+  AuthService? authService; //*114 to find out who sent the message
 
   bool _estEscribiendo = false;
 
@@ -40,10 +41,10 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
         Provider.of<SocketService>(context, listen: false); //*114
     this.authService = Provider.of<AuthService>(context, listen: false); //*114
 
-    //escuchar lo que emite el servidor //*115
+    //listen what server emits //*115
     socketService.socket.on('mensaje-personal', _escucharMensaje);
 
-//cargar el historial de mensajes
+//load message history
     _cargarHistorialMensajes(this.chatService!.usuarioPara!.uid); //*119
   }
 
@@ -122,8 +123,11 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
                 itemCount: _mensaje.length, //*64
 
                 itemBuilder: (_, i) => _mensaje[i], //*64
-                //la funcion reverse sirve para mandar los widgtes
-                //hacia arriba o hacia abajo
+
+
+                /*
+
+The reverse function is used to send the widgets from top to bottom                */
                 reverse: true,
               ),
             ),
@@ -197,7 +201,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   }
 
   _handleSubmint(String texto) {
-    //*si no hay texto no devuelva nada
+    
     if (texto.length == 0) return; //*67
 
     print(texto);
@@ -205,7 +209,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     _focusNode.requestFocus();
     _textController.clear();
 
-    //*65 añadir mensaje cuando se presiona la flecha
+    //*65 add message at arrow pressing
     final nuevoMensaje = MensajeChatWidget(
         animationController: AnimationController(
             vsync: this, duration: Duration(milliseconds: 400)), //*67
@@ -230,9 +234,12 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-// limpiar cada una de las instancias de los mensajes porque todos los controladores
-// creados pueden consumir mas memoria de la necesaria
-//para limpiar la aplicacion de que la animacion siga ejecutandose
+
+
+    /*
+    clean every message instance because all created controllers can consume more needed memory
+    */
+
 // *68
     for (MensajeChatWidget mensaje in _mensaje) {
       mensaje.animationController.dispose();
